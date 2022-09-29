@@ -1,26 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { createBreakpoint } from 'styled-components-breakpoint';
-import img from '../../images/tempimg.jpg';
-
-const breakpoints = {
-  xs: 0,
-  sm: 576,
-  md: 768,
-  lg: 992,
-  xl: 1200,
-};
-
-const breakpoint = createBreakpoint(breakpoints);
-
-const BodyWrapper = styled.section`
-  display: flex;
-  align-content: center;
-  justify-content: center;
-`;
+import breakpoint from '../breakpoints';
+import img from '../images/tempimg.jpg';
 
 const GameWrapper = styled.div`
-  margin: 15px;
   padding: 15px;
   max-width: 900px;
   width: 60%;
@@ -30,9 +13,8 @@ const GameWrapper = styled.div`
   border-radius: 15px;
 
   ${breakpoint('md')`
-    margin-top: 30px;
-    margin: 30px;
-    padding: 30px;
+    padding: 32px;
+    margin-top: 16px
   `}
 `;
 
@@ -81,27 +63,22 @@ const FormWrapper = styled.div`
 
     &:hover {
       background-color: #181a1b;
+      border: 3px solid #1d1f20;
     }
   }
 `;
 
-const ImageWrapper = styled.div`
-
-`;
-
 function Body() {
   return (
-    <BodyWrapper>
-      <GameWrapper>
-        <ImageWrapper>
-          <img src={img} alt="Logo" />
-        </ImageWrapper>
-        <FormWrapper>
-          <input placeholder="Enter a Country" type="text" />
-          <button type="submit">Guess</button>
-        </FormWrapper>
-      </GameWrapper>
-    </BodyWrapper>
+    <GameWrapper>
+      <div>
+        <img src={img} alt="Logo" />
+      </div>
+      <FormWrapper>
+        <input placeholder="Enter a Country" type="text" />
+        <button type="submit">Guess</button>
+      </FormWrapper>
+    </GameWrapper>
   );
 }
 

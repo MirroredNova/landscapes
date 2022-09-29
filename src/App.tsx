@@ -1,12 +1,24 @@
 import React from 'react';
-import Body from './components/body/Body';
-import Header from './components/header/Header';
+import styled from 'styled-components';
+import Body from './components/Body';
+import Description from './components/Description';
+import Header from './components/Header';
+
+const BodyWrapper = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
 
 function App() {
   return (
     <>
       <Header />
-      <Body />
+      <BodyWrapper>
+        <Description />
+        <Body />
+      </BodyWrapper>
     </>
   );
 }

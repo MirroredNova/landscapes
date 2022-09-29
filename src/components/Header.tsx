@@ -12,7 +12,7 @@ const HeaderWrapper = styled.header`
 function Header() {
   return (
     <HeaderWrapper>
-      Landscaped
+      Landscapes
     </HeaderWrapper>
   );
 }
