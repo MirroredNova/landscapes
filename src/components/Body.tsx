@@ -2,21 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import breakpoint from '../breakpoints';
 import img from '../images/tempimg.jpg';
-
-const GameWrapper = styled.div`
-  padding: 15px;
-  max-width: 900px;
-  width: 60%;
-  min-width: 300px;
-  color: #b5c2bc;
-  background-color: #1d1f20;
-  border-radius: 15px;
-
-  ${breakpoint('md')`
-    padding: 32px;
-    margin-top: 16px
-  `}
-`;
+import Card from './Card';
 
 const FormWrapper = styled.div`
   font-size: 16px;
@@ -70,7 +56,7 @@ const FormWrapper = styled.div`
 
 function Body() {
   return (
-    <GameWrapper>
+    <Card>
       <div>
         <img src={img} alt="Logo" />
       </div>
@@ -78,7 +64,7 @@ function Body() {
         <input placeholder="Enter a Country" type="text" />
         <button type="submit">Guess</button>
       </FormWrapper>
-    </GameWrapper>
+    </Card>
   );
 }
 

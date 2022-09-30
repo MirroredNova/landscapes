@@ -1,21 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import breakpoint from '../breakpoints';
+import Card from './Card';
 
-const DescriptionWrapper = styled.div`
-  margin: 16px;
-  padding: 16px;
-  max-width: 900px;
-  width: 60%;
-  min-width: 300px;
-  color: #b5c2bc;
-  background-color: #1d1f20;
-  border-radius: 16px;
-
-  ${breakpoint('md')`
-    margin-top: 32px
-  `}
-
+const DescriptionWrapper = styled(Card)`
   &:hover {
     background-color: #181a1b;
     outline: 3px solid #1d1f20;
@@ -42,7 +29,6 @@ function Description() {
           If you get it right, good job! If you get it wrong, you have 5 total guesses.
         </p>
       )}
-
     </DescriptionWrapper>
   );
 }

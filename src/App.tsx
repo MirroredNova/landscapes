@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Body from './components/Body';
 import Description from './components/Description';
 import Header from './components/Header';
+import Score from './components/Score';
 
 const BodyWrapper = styled.section`
   display: flex;
@@ -18,6 +19,7 @@ function App() {
       <BodyWrapper>
         <Description />
         <Body />
+        <Score />
       </BodyWrapper>
     </>
   );
