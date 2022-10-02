@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Body from './components/Body';
+import Body from './components/Game';
 import Description from './components/Description';
 import Header from './components/Header';
+import COUNTRY from './constants/Country';
 import Score from './components/Score';
 
 const BodyWrapper = styled.section`
@@ -22,16 +23,27 @@ const INITIAL_STATE = [
 
 function App() {
   const [score, setScore] = useState(INITIAL_STATE);
+  const [showScore, setShowScore] = useState(false);
   const [guessNum, setGuessNum] = useState(0);
+  const [enableGuess, setEnableGuess] = useState(false);
 
   const guessHandler = (guess: string) => {
-    if (guess && guessNum < 5) {
+    if (guess.trim() && guessNum < 5) {
       setScore((prevState) => {
         const newGuessArray = [...prevState];
         newGuessArray[guessNum].val = guess;
         return newGuessArray;
       });
       setGuessNum((prevState) => (prevState + 1));
+
+      if (guess === COUNTRY) {
+        setEnableGuess(true);
+        setShowScore(true);
+      }
+    }
+
+    if (guessNum >= 4) {
+      setShowScore(true);
     }
   };
 
@@ -40,8 +52,8 @@ function App() {
       <Header />
       <BodyWrapper>
         <Description />
-        <Body guessHandler={guessHandler} />
-        <Score score={score} />
+        <Body guessHandler={guessHandler} guessed={enableGuess} />
+        <Score showScore={showScore} score={score} />
       </BodyWrapper>
     </>
   );

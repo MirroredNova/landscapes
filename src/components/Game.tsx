@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import breakpoint from '../breakpoints';
 import img from '../images/canada.jpg';
-import Card from './Card';
+import Button from './layout/Button';
+import Card from './layout/Card';
+import Input from './layout/Input';
 
 const FormWrapper = styled.div`
   font-size: 16px;
@@ -27,57 +29,18 @@ const FormWrapper = styled.div`
   }
 `;
 
-const Input = styled.input`
-  width: 100%;
-  color: #b5c2bc;
-  background-color: #1d1f20;
-  border: 3px #181a1b solid;
-  margin-right: 16px;
-  padding: 5px;
-  vertical-align: middle;
-
-  ${breakpoint('md')`
-      margin-right: 32px;
-    `}
-
-  &:focus {
-    outline: none;
-  }
-
-  &::placeholder {
-    color: #b5c2bc;
-    opacity: 1;
-  }
-`;
-
-const Button = styled.button`
-  float: right;
-  height: 100%;
-  padding: 0 20px 0 20px;
-  cursor: pointer;
-  color: #b5c2bc;
-  border: 3px #181a1b solid;
-  background-color: #1d1f20;
-  box-shadow: none;
-  vertical-align: middle;
-
-  &:hover {
-    background-color: #181a1b;
-    border: 3px solid #1d1f20;
-  }
-`;
-
-type BodyProps = {
+type GameProps = {
   guessHandler: (guess: string) => void;
+  guessed: boolean;
 };
 
-function Body({ guessHandler }: BodyProps) {
+function Game({ guessHandler, guessed }: GameProps) {
   const [guess, setGuess] = useState('');
 
   const submitGuessHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    guessHandler(guess.toUpperCase());
     setGuess('');
-    guessHandler(guess);
   };
 
   return (
@@ -87,12 +50,13 @@ function Body({ guessHandler }: BodyProps) {
       </div>
       <FormWrapper>
         <form onSubmit={submitGuessHandler}>
-          <Button type="submit">Guess</Button>
+          <Button type="submit" disabled={guessed}>Guess</Button>
           <span>
             <Input
               // eslint-disable-next-line jsx-a11y/no-autofocus
               autoFocus
               placeholder="Enter a Country"
+              disabled={guessed}
               type="text"
               name="guess"
               value={guess}
@@ -105,4 +69,4 @@ function Body({ guessHandler }: BodyProps) {
   );
 }
 
-export default Body;
+export default Game;

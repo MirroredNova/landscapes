@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Card from './Card';
+import Card from './layout/Card';
 
 const DescriptionWrapper = styled(Card)`
   &:hover {

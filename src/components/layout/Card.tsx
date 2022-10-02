@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import breakpoint from '../breakpoints';
+import breakpoint from '../../breakpoints';
 
 const Card = styled.div`
   margin-top: 16px;
