@@ -28,15 +28,17 @@ function App() {
   const [enableGuess, setEnableGuess] = useState(false);
 
   const guessHandler = (guess: string) => {
-    if (guess.trim() && guessNum < 5) {
+    const formattedGuess = guess.trim().toUpperCase();
+
+    if (formattedGuess && guessNum < 5) {
       setScore((prevState) => {
         const newGuessArray = [...prevState];
-        newGuessArray[guessNum].val = guess;
+        newGuessArray[guessNum].val = formattedGuess;
         return newGuessArray;
       });
       setGuessNum((prevState) => (prevState + 1));
 
-      if (guess === COUNTRY) {
+      if (formattedGuess === COUNTRY) {
         setEnableGuess(true);
         setShowScore(true);
       }

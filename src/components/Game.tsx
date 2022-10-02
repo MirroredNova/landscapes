@@ -39,7 +39,7 @@ function Game({ guessHandler, guessed }: GameProps) {
 
   const submitGuessHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    guessHandler(guess.toUpperCase());
+    guessHandler(guess);
     setGuess('');
   };
 
