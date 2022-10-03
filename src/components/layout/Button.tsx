@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
 const Button = styled.button`
-  float: right;
-  height: 100%;
-  padding: 0 20px 0 20px;
-  cursor: pointer;
+  background-color: #1d1f20;
   color: #b5c2bc;
   border: 3px #181a1b solid;
-  background-color: #1d1f20;
-  box-shadow: none;
-  vertical-align: middle;
+  padding: 0 20px 0 20px;
   width: 150px;
+  font-size: 24px;
+  vertical-align: middle;
+  box-shadow: none;
+  cursor: pointer;
 
   &:hover {
     background-color: #181a1b;

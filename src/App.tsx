@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import Body from './components/Game';
+import Game from './components/Game';
 import Description from './components/Description';
 import Header from './components/Header';
-import COUNTRY from './constants/Country';
 import Score from './components/Score';
+import { COUNTRY } from './constants/GameDetails';
+import Modal from './components/layout/Modal';
+import Congratulations from './components/Congratulations';
 
 const BodyWrapper = styled.section`
   display: flex;
@@ -23,9 +25,9 @@ const INITIAL_STATE = [
 
 function App() {
   const [score, setScore] = useState(INITIAL_STATE);
-  const [showScore, setShowScore] = useState(false);
   const [guessNum, setGuessNum] = useState(0);
   const [enableGuess, setEnableGuess] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const guessHandler = (guess: string) => {
     const formattedGuess = guess.trim().toUpperCase();
@@ -40,22 +42,32 @@ function App() {
 
       if (formattedGuess === COUNTRY) {
         setEnableGuess(true);
-        setShowScore(true);
+        setShowModal(true);
       }
     }
 
     if (guessNum >= 4) {
-      setShowScore(true);
+      setShowModal(true);
     }
+  };
+
+  const toggleModal = () => {
+    setShowModal((prevState) => !prevState);
   };
 
   return (
     <>
+      <Modal
+        isShown={showModal}
+        toggleModal={toggleModal}
+      >
+        <Congratulations score={score} guessNum={guessNum} />
+      </Modal>
       <Header />
       <BodyWrapper>
         <Description />
-        <Body guessHandler={guessHandler} guessed={enableGuess} />
-        <Score showScore={showScore} score={score} />
+        <Game guessHandler={guessHandler} guessed={enableGuess} />
+        <Score score={score} />
       </BodyWrapper>
     </>
   );

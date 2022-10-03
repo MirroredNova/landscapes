@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import breakpoint from '../breakpoints';
-import img from '../images/canada.jpg';
+// import { IMG_PATH } from '../constants/GameDetails';
 import Button from './layout/Button';
 import Card from './layout/Card';
 import Input from './layout/Input';
+import image from '../images/10-02-2022/canada.jpg';
 
 const FormWrapper = styled.div`
   font-size: 16px;
@@ -29,6 +30,11 @@ const FormWrapper = styled.div`
   }
 `;
 
+const GuessButton = styled(Button)`
+  float: right;
+  height: 100%;
+`;
+
 type GameProps = {
   guessHandler: (guess: string) => void;
   guessed: boolean;
@@ -46,11 +52,11 @@ function Game({ guessHandler, guessed }: GameProps) {
   return (
     <Card>
       <div>
-        <img src={img} alt="Logo" />
+        <img src={image} alt="Logo" />
       </div>
       <FormWrapper>
         <form onSubmit={submitGuessHandler}>
-          <Button type="submit" disabled={guessed}>Guess</Button>
+          <GuessButton type="submit" disabled={guessed}>Guess</GuessButton>
           <span>
             <Input
               // eslint-disable-next-line jsx-a11y/no-autofocus
