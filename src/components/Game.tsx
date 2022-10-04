@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import breakpoint from '../breakpoints';
-// import { IMG_PATH } from '../constants/GameDetails';
+import { IMG_PATH } from '../constants/GameDetails';
+import Autofill from './Autofill';
 import Button from './layout/Button';
 import Card from './layout/Card';
 import Input from './layout/Input';
-import image from '../images/10-02-2022/canada.jpg';
 
 const FormWrapper = styled.div`
   font-size: 16px;
@@ -22,17 +22,10 @@ const FormWrapper = styled.div`
   & form {
     width: 100%;
   }
-
-  & span {
-    display: block;
-    overflow: hidden;
-    padding-right: 10px;
-  }
 `;
 
 const GuessButton = styled(Button)`
-  float: right;
-  height: 100%;
+  width: 100%;
 `;
 
 type GameProps = {
@@ -52,25 +45,24 @@ function Game({ guessHandler, guessed }: GameProps) {
   return (
     <Card>
       <div>
-        <img src={image} alt="Logo" />
+        <img src={IMG_PATH} alt="Logo" />
       </div>
       <FormWrapper>
         <form onSubmit={submitGuessHandler}>
+          <Input
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
+            placeholder="Enter a Country"
+            disabled={guessed}
+            type="text"
+            name="guess"
+            value={guess}
+            onChange={(e) => setGuess(e.target.value)}
+          />
           <GuessButton type="submit" disabled={guessed}>Guess</GuessButton>
-          <span>
-            <Input
-              // eslint-disable-next-line jsx-a11y/no-autofocus
-              autoFocus
-              placeholder="Enter a Country"
-              disabled={guessed}
-              type="text"
-              name="guess"
-              value={guess}
-              onChange={(e) => setGuess(e.target.value)}
-            />
-          </span>
         </form>
       </FormWrapper>
+      <Autofill />
     </Card>
   );
 }

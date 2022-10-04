@@ -25,8 +25,9 @@ function Description() {
       </h3>
       {open && (
         <p>
-          Enter into the input below what country you think the image comes from.
+          Enter into the input below what country or territory you think the image comes from.
           If you get it right, good job! If you get it wrong, you have 5 total guesses.
+          You do need to spell the country correctly, however, capitalization does not matter.
         </p>
       )}
     </DescriptionWrapper>

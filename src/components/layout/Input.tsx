@@ -4,9 +4,9 @@ import breakpoint from '../../breakpoints';
 const Input = styled.input`
   width: 100%;
   color: #b5c2bc;
-  background-color: #1d1f20;
+  background-color: #181a1b;
   border: 3px #181a1b solid;
-  margin-right: 16px;
+  margin-bottom: 5px;
   padding: 5px;
   vertical-align: middle;
 
@@ -20,6 +20,7 @@ const Input = styled.input`
 
   &::placeholder {
     color: #b5c2bc;
+    text-align: center;  
     opacity: 1;
   }
 `;
