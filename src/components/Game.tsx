@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import breakpoint from '../breakpoints';
+import COUNTRY_LIST from '../constants/CountryList';
 import { IMG_PATH } from '../constants/GameDetails';
 import Autofill from './Autofill';
 import Button from './layout/Button';
@@ -34,12 +35,48 @@ type GameProps = {
 };
 
 function Game({ guessHandler, guessed }: GameProps) {
-  const [guess, setGuess] = useState('');
+  const [countries, setCountries] = useState(COUNTRY_LIST);
+  const [showAutofill, setShowAutofill] = useState(false);
+  const inputEl = useRef<HTMLInputElement>(null);
+
+  const enableAutofill = () => {
+    setShowAutofill(true);
+  };
+
+  const disableAutofill = () => {
+    // setShowAutofill(false);
+  };
+
+  useEffect(() => {
+    if (inputEl.current != null) {
+      inputEl.current.focus();
+    }
+  });
 
   const submitGuessHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    guessHandler(guess);
-    setGuess('');
+    if (inputEl.current != null && COUNTRY_LIST.includes(inputEl.current.value.toUpperCase())) {
+      guessHandler(inputEl.current.value);
+      inputEl.current.value = '';
+    }
+  };
+
+  const changeFilter = () => {
+    enableAutofill();
+    if (inputEl.current != null) {
+      const filteredCountries = COUNTRY_LIST.filter((item) => {
+        if (inputEl.current != null) return item.includes(inputEl.current.value.toUpperCase());
+        return '';
+      });
+      setCountries(filteredCountries);
+    }
+  };
+
+  const clickHandler = (liValue: string) => {
+    if (inputEl.current != null) {
+      inputEl.current.value = liValue;
+      setShowAutofill(false);
+    }
   };
 
   return (
@@ -48,21 +85,20 @@ function Game({ guessHandler, guessed }: GameProps) {
         <img src={IMG_PATH} alt="Logo" />
       </div>
       <FormWrapper>
-        <form onSubmit={submitGuessHandler}>
+        <form onSubmit={submitGuessHandler} autoComplete="off">
           <Input
-            // eslint-disable-next-line jsx-a11y/no-autofocus
-            autoFocus
             placeholder="Enter a Country"
             disabled={guessed}
             type="text"
             name="guess"
-            value={guess}
-            onChange={(e) => setGuess(e.target.value)}
+            ref={inputEl}
+            onChange={changeFilter}
+            onBlur={disableAutofill}
           />
           <GuessButton type="submit" disabled={guessed}>Guess</GuessButton>
         </form>
       </FormWrapper>
-      <Autofill />
+      {showAutofill && <Autofill countries={countries} clickHandler={clickHandler} />}
     </Card>
   );
 }

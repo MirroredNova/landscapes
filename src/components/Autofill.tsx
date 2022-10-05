@@ -1,10 +1,11 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useMemo } from 'react';
 import styled from 'styled-components';
-import COUNTRY_LIST from '../constants/CountryList';
 
 const AutofillWrapper = styled.div`
   width: 100%;
-  height: 300px;
+  max-height: 300px;
   overflow-y:scroll;
 `;
 
@@ -16,8 +17,6 @@ const AutofillList = styled.ul`
 
   & li {
     padding: 5px;
-    border: 3px #181a1b solid;
-    margin-bottom: -3px;
 
     &:hover {
       background-color: #181a1b;
@@ -25,8 +24,19 @@ const AutofillList = styled.ul`
   }
 `;
 
-function Autofill() {
-  const guesses = useMemo(() => COUNTRY_LIST.map((item) => <li key={item}>{item}</li>), []);
+type AutofillProps = {
+  countries: string[]
+  clickHandler: (liValue: string) => void
+}
+
+function Autofill({ countries, clickHandler }: AutofillProps) {
+  const listItemClicked = (e: React.MouseEvent<HTMLLIElement>) => {
+    const li: HTMLLIElement = e.currentTarget;
+    clickHandler(li.innerHTML);
+  };
+
+  const guesses = useMemo(() => countries.map((item) => (
+    <li key={item} onClick={listItemClicked}>{item}</li>)), [countries]);
 
   return (
     <AutofillWrapper>
